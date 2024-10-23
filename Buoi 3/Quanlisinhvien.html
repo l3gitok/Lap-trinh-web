@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sinh Viên</title>
+    <link rel="stylesheet" href="quanli.css">       
+</head>
+<body>
+    <header>
+        <h1>Quản Lý Sinh Viên</h1>
+    </header>
+    <main>
+        <form id="formSinhVien">
+            <input type="text" id="masinhvien" placeholder="Mã Sinh Viên" required>
+            <input type="text" id="hoten" placeholder="Họ Tên" required>
+            <select id="gioitinh" required>
+                <option value="">Giới Tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+            <input type="date" id="ngaysinh" required>
+            <input type="text" id="quequan" placeholder="Quê Quán" required>
+            <button type="submit">Thêm Sinh Viên</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mã Sinh Viên</th>
+                    <th>Họ Tên</th>
+                    <th>Giới Tính</th>
+                    <th>Ngày Sinh</th>
+                    <th>Quê Quán</th>
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody id="danhSachSinhVien"></tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2024 Quản Lý Sinh Viên.</p>
+    </footer>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sửa Thông Tin Sinh Viên</h2>
+            <input type="text" id="editMasinhvien" placeholder="Mã Sinh Viên" readonly>
+            <input type="text" id="editHoten" placeholder="Họ Tên" required>
+            <select id="editGioitinh" required>
+                <option value="">Giới Tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+            <input type="date" id="editNgaysinh" required>
+            <input type="text" id="editQuequan" placeholder="Quê Quán" required>
+            <button id="saveChanges">Lưu Thay Đổi</button>
+        </div>
+    </div>
+
+    <script src="quanli.js">
+        
+    </script>
+</body>
+</html>

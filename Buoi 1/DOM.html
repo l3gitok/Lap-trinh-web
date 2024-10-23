@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        document.getElementById("title").innerHTML = "Hello, DOM!";
+
+
+        document.getElementById("text").style.color = "red";
+
+
+        var li = document.createElement("li");
+
+
+        document.getElementById("list").appendChild(li);
+
+
+        var element = document.getElementById("remove-me");
+        element.parentNode.removeChild(element);
+
+        document.getElementById("image").src = "new-image.jpg";
+
+
+        document.getElementById("btn").addEventListener("click", function() {
+            alert("Bạn đã nhấp vào nút!");
+        });
+
+
+        var paragraph = document.getElementsByTagName("p");
+
+        for (var i = 0; i < paragraphs.length; i++) {
+            paragraph[i].textContent = "Updated paragraph";
+        }
+
+
+        var table = document.createElement("table");
+        for (var i = 0; i < 3; i++) {
+            var row = document.createElement("tr");
+            for (var j = 0; j < 3; j++) {
+                var cell = document.createElement("td");
+                cell.textContent = "hang " + (i + 1) + ", cot " + (j + 1);
+                row.appendChild(cell);
+            }
+            table.appendChild(row);
+        }
+        document.getElementById("table-container").appendChild(table);
+
+
+        var div = document.getElementsByTagName("div");
+        var count = div.length;
+        alert("Số lượng phần tử <div> trên trang là: " + count);
+
+
+            
+        var items = document.getElementsByClassName("item");
+        for (var i = 0; i < items.length; i++) {
+            items[i].textContent = "Updated item";
+        }
+
+
+
+
+
+
+    </script>
+</body>
+</html>
