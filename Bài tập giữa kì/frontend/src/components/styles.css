@@ -1,0 +1,122 @@
+/* Styles cho Card */
+.ant-card {
+    transition: all 0.3s ease;
+}
+
+.ant-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.ant-card-actions {
+    border-radius: 0 0 8px 8px;
+}
+
+/* Styles cho Tag */
+.ant-tag {
+    margin-right: 0;
+}
+
+/* Styles cho List */
+.ant-list {
+    background: transparent;
+}
+
+/* Styles cho Empty state */
+.ant-empty {
+    margin: 32px 0;
+}
+
+/* Custom styles cho todo item */
+.todo-item {
+    margin-bottom: 16px;
+}
+
+.todo-item-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.todo-item-date {
+    color: #1890ff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Custom styles cho todo list */
+.todo-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.todo-list-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.todo-list-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.add-task-button {
+    margin-top: 16px;
+}
+.todo-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.todo-list-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.todo-list-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.add-task-button {
+    align-self: center;
+    color: #d1453b;
+    border-color: #d1453b;
+}
+
+.add-task-button:hover {
+    color: #fff;
+    background-color: #d1453b;
+    border-color: #d1453b;
+}
+
+/* Styles cho ToDoItem */
+.todo-item {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.todo-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
