@@ -1,7 +1,7 @@
 const db = require('../configs/database');
 const util = require('util');
 
-// Promisify the db.query method
+
 const query = util.promisify(db.query).bind(db);
 
 const Todo = {

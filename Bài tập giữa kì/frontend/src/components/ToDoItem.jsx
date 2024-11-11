@@ -7,7 +7,7 @@ import './styles.css';
 const ToDoItem = ({ 
     id, 
     title, 
-    description, // Thay đổi từ content sang description
+    description, 
     due_date, 
     completed, 
     onEdit, 

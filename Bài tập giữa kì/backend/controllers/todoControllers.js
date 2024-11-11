@@ -14,7 +14,7 @@ exports.createTodo = async (req, res) => {
     try {
         const { title, description, due_date } = req.body;
         
-        // Validation
+        
         if (!title || !due_date) {
             return res.status(400).json({ error: 'Title and due date are required' });
         }
@@ -31,8 +31,6 @@ exports.updateTodo = async (req, res) => {
     try {
         const { id } = req.params;
         const { title, description, due_date, completed } = req.body;
-
-        // Validation
         if (!title || !due_date) {
             return res.status(400).json({ error: 'Title and due date are required' });
         }

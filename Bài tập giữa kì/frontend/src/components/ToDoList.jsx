@@ -4,8 +4,8 @@ import { Modal, Input, DatePicker, Button, message } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import ToDoItem from './ToDoItem';
 import './styles.css';
-import { format } from 'date-fns';
 import dayjs from 'dayjs';
+
 
 const ToDoList = () => {
     const [todos, setTodos] = useState([]);
@@ -18,7 +18,6 @@ const ToDoList = () => {
     });
     const [editTask, setEditTask] = useState(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
     useEffect(() => {
         fetchTodos();
     }, []);
@@ -42,7 +41,7 @@ const ToDoList = () => {
             message.warning('Vui lòng nhập đầy đủ thông tin!');
             return;
         }
-
+    
         setLoading(true);
         try {
             const formattedDate = dayjs(newTask.due_date).format('YYYY-MM-DD HH:mm:ss');
@@ -51,12 +50,13 @@ const ToDoList = () => {
                 description: newTask.description,
                 due_date: formattedDate
             });
-
+    
             if (response.data) {
-                setTodos(prev => [...prev, response.data]);
                 message.success('Thêm công việc thành công!');
                 setIsModalOpen(false);
                 setNewTask({ title: '', description: '', due_date: null });
+                
+                await fetchTodos(); 
             }
         } catch (error) {
             message.error('Không thể thêm công việc');
@@ -64,6 +64,7 @@ const ToDoList = () => {
             setLoading(false);
         }
     };
+    
 
     const handleDelete = async (id) => {
         setLoading(true);
@@ -93,17 +94,16 @@ const ToDoList = () => {
     
         setLoading(true);
         try {
-            // Đảm bảo gửi đúng format date và tất cả các trường cần thiết
             const formattedDate = dayjs(editTask.due_date).format('YYYY-MM-DD HH:mm:ss');
             
             const updatedTask = {
                 title: editTask.title,
                 description: editTask.description,
                 due_date: formattedDate,
-                completed: editTask.completed || 0  // Đảm bảo luôn có giá trị completed
+                completed: editTask.completed || 0  
             };
     
-            console.log('Sending data:', updatedTask); // Log để debug
+            console.log('Sending data:', updatedTask); 
     
             const response = await axios.put(
                 `http://localhost:3000/api/todos/${editTask.id}`,
@@ -124,7 +124,7 @@ const ToDoList = () => {
                 setEditTask(null);
             }
         } catch (error) {
-            console.error('Error updating todo:', error); // Log lỗi chi tiết
+            console.error('Error updating todo:', error); 
             message.error(`Không thể cập nhật công việc: ${error.message}`);
         } finally {
             setLoading(false);
@@ -163,7 +163,6 @@ const ToDoList = () => {
     return (
         <div className="todo-list-container">
             <h1 className="todo-list-header">My work 🎯</h1>
-            
             <div className="todo-list-content">
                 {loading ? (
                     <div>Đang tải...</div>
@@ -294,6 +293,7 @@ const ToDoList = () => {
                             format="YYYY-MM-DD HH:mm:ss"
                             style={{ width: '100%' }}
                             placeholder="Chọn ngày và giờ"
+                            disabledDate={(current) => current && current < dayjs().startOf('day')}
                         />
                     </div>
                 </div>
