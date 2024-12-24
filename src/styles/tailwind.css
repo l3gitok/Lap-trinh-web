@@ -1,0 +1,84 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Custom styles */
+.header {
+  @apply flex justify-between items-center px-6 py-3 bg-white shadow-md;
+}
+
+.header-title {
+  @apply text-2xl font-bold text-gray-800;
+}
+
+.header-buttons {
+  @apply flex space-x-2;
+}
+
+.header-button {
+  @apply px-3 py-1 text-sm font-medium rounded bg-gray-200 hover:bg-gray-300;
+}
+
+.header-button-login {
+  @apply bg-white text-primary hover:bg-gray-200;
+}
+
+.header-button-register {
+  @apply bg-accent1 hover:bg-accent2;
+}
+
+.main-content {
+  @apply flex flex-col items-center justify-center py-16 px-8 flex-grow;
+}
+
+.text-section {
+  @apply max-w-md text-center md:text-left;
+}
+
+.text-section-title {
+  @apply text-5xl font-bold mb-4;
+}
+
+.text-section-description {
+  @apply text-lg mb-6;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 rounded text-black;
+}
+
+.claim-button {
+  @apply w-full px-4 py-2 bg-accent3 text-white font-semibold rounded hover:bg-accent4;
+}
+
+.links-section {
+  @apply w-full max-w-2xl mt-12;
+}
+
+.card {
+  @apply bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow mb-4;
+}
+
+.card-title {
+  @apply text-lg font-semibold text-gray-800;
+}
+
+.card-url {
+  @apply text-sm text-blue-500 hover:underline break-all;
+}
+
+.additional-sections {
+  @apply w-full mt-12 space-y-8;
+}
+
+.additional-section {
+  @apply p-6 rounded-lg shadow-md w-full;
+}
+
+.footer {
+  @apply text-center py-4 bg-secondary mt-auto;
+}
+
+.footer-text {
+  @apply text-white;
+}
