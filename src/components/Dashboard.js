@@ -135,10 +135,6 @@ const Dashboard = () => {
             <BarChart3 className="inline-block w-5 h-5 mr-2" />
             Analytics
           </RouterLink>
-          <RouterLink to="/settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
-            <Settings className="inline-block w-5 h-5 mr-2" />
-            Settings
-          </RouterLink>
         </nav>
       </div>
 

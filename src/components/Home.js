@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Home = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
           >
-            Linktree Clone
+            Biolink
           </motion.div>
           <motion.div
             className="header-buttons space-x-4"
@@ -70,12 +71,12 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            Join 50M+ people using Linktree for their link in bio. Share everything you create, curate, and sell from your Instagram, TikTok, YouTube, and more.
+            Join 50M+ people using Biolink for their link in bio. Share everything you create, curate, and sell from your Instagram, TikTok, YouTube, and more.
           </motion.p>
           <div className="space-y-2">
             <motion.input
               type="text"
-              placeholder="linktr.ee/yourname"
+              placeholder="http://localhost:3000//yourbiolink"
               className="input-field w-full px-4 py-2 rounded text-black"
               whileFocus={{ scale: 1.05 }}
             />
@@ -84,7 +85,7 @@ const Home = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              Claim your Linktree
+              Claim your Biolink
             </motion.button>
           </div>
         </div>
@@ -233,32 +234,40 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex justify-between items-center px-4 max-w-6xl mx-auto mt-8">
-            <div className="flex space-x-4">
-              <a href="https://facebook.com" className="text-xl">FB</a>
-              <a href="https://twitter.com" className="text-xl">TW</a>
-              <a href="https://instagram.com" className="text-xl">IG</a>
-              <a href="https://linkedin.com" className="text-xl">LI</a>
+            <div className="flex justify-between items-center px-4 max-w-6xl mx-auto mt-8">
+              <div className="flex space-x-4">
+                <a href="https://facebook.com" className="text-xl">
+                  <FaFacebook />
+                </a>
+                <a href="https://twitter.com" className="text-xl">
+                  <FaTwitter />
+                </a>
+                <a href="https://instagram.com" className="text-xl">
+                  <FaInstagram />
+                </a>
+                <a href="https://linkedin.com" className="text-xl">
+                  <FaLinkedin />
+                </a>
+              </div>
+              <div className="space-x-4">
+                <motion.button
+                  className="px-4 py-2 bg-primary text-white rounded"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={navigateToLogin}
+                >
+                  Log In
+                </motion.button>
+                <motion.button
+                  className="px-4 py-2 bg-accent1 text-white rounded"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={navigateToRegister}
+                >
+                  Get Started
+                </motion.button>
+              </div>
             </div>
-            <div className="space-x-4">
-              <motion.button
-                className="px-4 py-2 bg-primary text-white rounded"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={navigateToLogin}
-              >
-                Log In
-              </motion.button>
-              <motion.button
-                className="px-4 py-2 bg-accent1 text-white rounded"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                onClick={navigateToRegister}
-              >
-                Get Started
-              </motion.button>
-            </div>
-          </div>
         </section>
       </div>
     </div>

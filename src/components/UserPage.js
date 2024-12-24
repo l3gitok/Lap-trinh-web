@@ -1,33 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { getProfile, getUserLinks } from '../services/api';
 import Swal from 'sweetalert2';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import { getUserLinks, getProfileByUserIdController } from '../services/api';
 
 const UserPage = () => {
-  const { userId } = useParams();
-  const [user, setUser] = useState(null);
+  const { biolink } = useParams();
+  const [profile, setProfile] = useState(null);
   const [links, setLinks] = useState([]);
-  const [socialLinks, setSocialLinks] = useState([]);
-  const [theme, setTheme] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchUserData();
-  }, [userId]);
-
-  const fetchUserData = async () => {
-    try {
-      const profileResponse = await getProfileByUserIdController(userId);
-      const linksResponse = await getUserLinks(userId);
-      setUser(profileResponse.data.user);
-      setLinks(linksResponse.data);
-      setSocialLinks(profileResponse.data.socialLinks || []); // Assuming socialLinks is returned by the API
-      setTheme(profileResponse.data.theme || {}); // Assuming theme is returned by the API
+    if (biolink) {
+      console.log('Biolink:', biolink);
+      loadProfileAndLinks(biolink);
+    } else {
+      console.log('Biolink not found');
       setLoading(false);
+    }
+  }, [biolink]);
+
+  const loadProfileAndLinks = async (biolink) => {
+    try {
+      console.log('Fetching profile and links for biolink:', biolink);
+      const profileResponse = await getProfile(biolink);
+      const linksResponse = await getUserLinks(biolink);
+      console.log('Profile data:', profileResponse.data);
+      console.log('Links data:', linksResponse.data);
+      setProfile(profileResponse.data);
+      setLinks(linksResponse.data);
     } catch (error) {
+      console.error('Error loading user data:', error);
       Swal.fire('Error', 'Failed to load user data', 'error');
+    } finally {
       setLoading(false);
     }
   };
@@ -40,73 +44,50 @@ const UserPage = () => {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>User not found</p>
-      </div>
-    );
+  if (!profile) {
+    return <div>User not found</div>;
   }
 
-  const backgroundStyle = theme.gradient?.enabled
-    ? { background: `linear-gradient(${theme.gradient.direction}, ${theme.gradient.startColor}, ${theme.gradient.endColor})` }
-    : { backgroundColor: theme.backgroundColor };
+  const previewStyle = {
+    backgroundColor: profile.theme?.backgroundColor ,
+    color: profile.theme?.textColor ,
+    fontFamily: profile.theme?.fontFamily ,
+    backgroundImage: profile.theme?.backgroundImage ? `url(${profile.theme.backgroundImage})` : 'none',
+    background: profile.theme?.gradient?.enabled
+      ? `linear-gradient(${profile.theme.gradient.direction}, ${profile.theme.gradient.startColor}, ${profile.theme.gradient.endColor})`
+      : profile.theme?.backgroundColor ,
+    padding: '40px', // Increase padding for larger preview
+    borderRadius: profile.theme?.buttonStyle === 'rounded' ? '12px' : '0px',
+    width: '80%', // Set width for larger preview
+    margin: '0 auto', // Center the preview box
+    textAlign: 'center', // Center text inside the preview box
+  };
 
   return (
-    <div className="min-h-screen" style={{ ...backgroundStyle, color: theme.textColor, fontFamily: theme.fontFamily }}>
-      <div className="p-8 flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="max-w-2xl w-full bg-white p-6 rounded-lg shadow"
-          style={{ backgroundImage: `url(${theme.backgroundImage})` }}
-        >
-          <div className="text-center">
-            {theme.logo && (
-              <img src={theme.logo} alt="Logo" className="h-16 w-16 mb-4 mx-auto" />
-            )}
-            <h1 className="text-2xl font-bold mb-4">{user.username}</h1>
-            <p className="mb-6">{user.bio}</p>
-          </div>
-          <div className="space-y-4">
-            {links.map((link) => (
-              <motion.a
-                key={link._id}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`block ${theme.buttonStyle === 'rounded' ? 'rounded-lg' : 'rounded-none'} bg-blue-500 text-white px-4 py-2 text-center`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {link.title}
-              </motion.a>
-            ))}
-          </div>
-          <div className="mt-8">
-            <h2 className="text-xl font-semibold mb-4 text-center">Follow me on</h2>
-            <div className="flex justify-center space-x-4">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.platform}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-2xl text-gray-700 hover:text-blue-500"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {social.platform === 'facebook' && <FaFacebook />}
-                  {social.platform === 'twitter' && <FaTwitter />}
-                  {social.platform === 'instagram' && <FaInstagram />}
-                  {social.platform === 'linkedin' && <FaLinkedin />}
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+      <div className="min-h-screen flex items-center justify-center" style={{ ...previewStyle, backgroundColor: profile.theme?.backgroundColor, color: profile.theme?.textColor }}>
+      <div className="text-center">
+        <h1 className="text-3xl font-bold mb-4" style={{ fontFamily: profile.theme?.fontFamily }}>{profile.username}Link</h1>
+        <div className="space-y-4">
+          {links.map(link => (
+            <a
+              key={link.id}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-2 bg-blue-500 text-white rounded"
+              style={{ 
+                fontFamily: profile.theme?.fontFamily, 
+                borderRadius: profile.theme?.buttonStyle === 'rounded' ? '12px' : '0px',
+                backgroundColor: profile.theme?.buttonBackgroundColor,
+                color: profile.theme?.buttonTextColor
+              }}
+            >
+              {link.title} - {link.url}
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
+  </div>
   );
 };
 

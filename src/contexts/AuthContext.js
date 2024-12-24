@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { getProfile } from '../services/api';
+import { getUserProfile } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
-        const response = await getProfile();
+        const response = await getUserProfile();
         setUser(response.data.user);
       } catch (error) {
         localStorage.removeItem('token');

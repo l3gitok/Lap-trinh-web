@@ -48,7 +48,7 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/vualink/:username" element={<UserPage />} />
+          <Route path="/:biolink" element={<UserPage />} />
           <Route path="/analytics" element={
             <PrivateRoute>
               <Analytics />

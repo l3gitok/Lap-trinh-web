@@ -24,7 +24,10 @@ const Analytics = () => {
       setAnalytics({
         totalViews: userStats.data.totalViews,
         totalClicks: userStats.data.totalClicks,
-        linkStats: linkStats.data
+        linkStats: linkStats.data.map(link => ({
+          ...link,
+          ctr: userStats.data.totalViews ? ((link.click_count / userStats.data.totalViews) * 100).toFixed(1) : 0
+        }))
       });
       setLoading(false);
     } catch (error) {
@@ -60,10 +63,6 @@ const Analytics = () => {
           <RouterLink to="/analytics" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
             <BarChart3 className="inline-block w-5 h-5 mr-2" />
             Analytics
-          </RouterLink>
-          <RouterLink to="/settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
-            <Settings className="inline-block w-5 h-5 mr-2" />
-            Settings
           </RouterLink>
         </nav>
       </div>
@@ -169,7 +168,7 @@ const Analytics = () => {
                       <div className="flex items-center space-x-8">
                         <div className="text-center">
                           <p className="text-sm text-gray-600">Clicks</p>
-                          <p className="font-medium">{link.clicks}</p>
+                          <p className="font-medium">{link.click_count}</p>
                         </div>
                         <div className="text-center">
                           <p className="text-sm text-gray-600">CTR</p>
