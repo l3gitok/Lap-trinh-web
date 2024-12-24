@@ -19,13 +19,26 @@ const getProfileByUserId = async (userId) => {
 
 const updateProfileByUserId = async (userId, data) => {
   const query = `
-    UPDATE profiles
+    UPDATE profiles 
     SET theme = ?, background_color = ?, font_color = ?, font_family = ?, button_style = ?, background_image = ?, logo = ?, gradient_enabled = ?, gradient_start_color = ?, gradient_end_color = ?, gradient_direction = ?
     WHERE user_id = ?
   `;
-  const [result] = await db.query(query, [data.theme, data.background_color, data.font_color, data.font_family, data.button_style, data.background_image, data.logo, data.gradient_enabled, data.gradient_start_color, data.gradient_end_color, data.gradient_direction, userId]);
-  return result.affectedRows;
+  await db.query(query, [
+    data.theme,
+    data.background_color,
+    data.font_color,
+    data.font_family,
+    data.button_style,
+    data.background_image,
+    data.logo,
+    data.gradient_enabled ? 1 : 0, // Convert boolean to integer
+    data.gradient_start_color,
+    data.gradient_end_color,
+    data.gradient_direction,
+    userId
+  ]);
 };
+
 
 
 module.exports = {

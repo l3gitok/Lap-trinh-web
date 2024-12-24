@@ -25,6 +25,7 @@ const deleteSocialMedia = async (id) => {
   await db.query(query, [id]);
 };
 
+
 module.exports = {
   addSocialMedia,
   getSocialMediaByUserId,

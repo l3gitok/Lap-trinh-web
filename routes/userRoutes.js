@@ -20,4 +20,5 @@ router.get('/verify-email/:token', verifyEmail);
 router.get('/user/:id',authenticate, getUserById);
 router.get('/:username',authenticate, getUserByUsername);
 
+
 module.exports = router;

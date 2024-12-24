@@ -63,8 +63,7 @@ const getUserProfile = async (req, res) => {
   const userId = req.user.id;
   try {
     const user = await userModel.getUserById(userId);
-    const profile = await profileModel.getProfileByUserId(userId);
-    res.json({ user, profile });
+    res.json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -72,15 +71,20 @@ const getUserProfile = async (req, res) => {
 
 const updateUserProfile = async (req, res) => {
   const userId = req.user.id;
-  const { username, email, password, theme, background_color, font_color, font_family, button_style, background_image, logo, gradient_enabled, gradient_start_color, gradient_end_color, gradient_direction } = req.body;
+  const { username, email, password, biolink } = req.body;
+
+  if (!username) {
+    return res.status(400).json({ error: 'Username is required' });
+  }
+
   try {
-    await userModel.updateUser(userId, { username, email,password });
-    await profileModel.updateProfileByUserId(userId, { theme, background_color, font_color, font_family, button_style, background_image, logo, gradient_enabled, gradient_start_color, gradient_end_color, gradient_direction });
+    await userModel.updateUser(userId, { username, email, password, biolink });
     res.json({ message: 'Profile updated successfully' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 const verifyEmail = async (req, res) => {
   const { token } = req.params;
@@ -151,14 +155,21 @@ const getUserByUsername = async (req, res) => {
   }
 };
 const updatePassword = async (req, res) => {
-  const { token, password } = req.body;
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user.id;
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const hashedPassword = await bcrypt.hash(password, 10);
-    await userModel.updateUserPassword(decoded.id, hashedPassword);
-    res.json({ message: 'Password updated successfully' });
+    const user = await userModel.getUserById(userId);
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Current password is incorrect' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await userModel.updatePassword(userId, hashedPassword);
+    res.status(200).json({ message: 'Password updated successfully' });
   } catch (error) {
-    res.status(400).json({ error: 'Invalid or expired token' });
+    res.status(500).json({ error: error.message });
   }
 };
 const getUserById = async (req, res) => {
@@ -172,6 +183,7 @@ const getUserById = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
 module.exports = {
   registerUser,
   loginUser,
