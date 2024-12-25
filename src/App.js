@@ -11,6 +11,7 @@ import ResetPasswordRequest from './components/ResetPasswordRequest';
 import ResetPassword from './components/ResetPassword';
 import Analytics from './components/Analytics';
 import './styles/tailwind.css';
+import VerifyOtp from './components/VerifyOtp';
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -32,6 +33,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPasswordRequest />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route
             path="/dashboard"
             element={

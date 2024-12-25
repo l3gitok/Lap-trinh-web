@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { getUserLinks, createLink, updateLink, deleteLink } from '../services/api';
 import Swal from 'sweetalert2';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { LayoutDashboard, User2, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, User2, BarChart3,Link } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -137,6 +137,10 @@ const Dashboard = () => {
             <BarChart3 className="inline-block w-5 h-5 mr-2" />
             Analytics
           </RouterLink>
+          <RouterLink to="/:biolink" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
+            <Link className="inline-block w-5 h-5 mr-2" />
+            Biolink
+          </RouterLink> 
         </nav>
       </div>
 

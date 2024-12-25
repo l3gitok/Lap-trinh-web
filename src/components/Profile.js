@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getUserLinks } from '../services/api';
 import Swal from 'sweetalert2';
-import { LayoutDashboard, User2, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, User2, BarChart3,Link } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import ProfileInformation from './ProfileInformation';
@@ -59,6 +59,10 @@ const Profile = () => {
             <BarChart3 className="inline-block w-5 h-5 mr-2" />
             Analytics
           </RouterLink>
+          <RouterLink to="/:biolink" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
+            <Link className="inline-block w-5 h-5 mr-2" />
+            Biolink
+          </RouterLink> 
         </nav>
       </div>
 

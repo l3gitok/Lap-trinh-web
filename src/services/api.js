@@ -1,9 +1,10 @@
+
 import axios from 'axios';
 
+const API_URL = 'http://localhost:5000/api';
 
 const api = axios.create({
-  baseURL: 'https://backend-eux0.onrender.com/api',
-  withCredentials: true,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -18,6 +19,9 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+export const verifyOtp = (email, otp) => api.post('/auth/verify-otp', { email, otp });
+export const generateOtp = (email) => api.post('/auth/generate-otp', { email });
+export const logout = () => api.post('/auth/logout');
 export const login = (emailOrUsername, password) => api.post('/auth/login', { emailOrUsername, password });
 export const register = (username, email, password) => api.post('/auth/register', { username, email, password });
 export const getUserProfile = () => api.get('/users/profile');

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, ArrowUpRight, Users, Link as LinkIcon, LayoutDashboard, User2, Settings } from 'lucide-react';
-import { getUserAnalytics, getLinkAnalytics } from '../services/api';
+import { BarChart3, ArrowUpRight, Users, Link as LinkIcon, LayoutDashboard, User2, Link } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { Link as RouterLink } from 'react-router-dom';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const Analytics = () => {
   const [loading, setLoading] = useState(true);
@@ -14,27 +14,21 @@ const Analytics = () => {
   });
 
   useEffect(() => {
-    fetchAnalytics();
-  }, []);
-
-  const fetchAnalytics = async () => {
-    try {
-      const userStats = await getUserAnalytics();
-      const linkStats = await getLinkAnalytics();
+    // Simulate loading data
+    setTimeout(() => {
       setAnalytics({
-        totalViews: userStats.data.totalViews,
-        totalClicks: userStats.data.totalClicks,
-        linkStats: linkStats.data.map(link => ({
-          ...link,
-          ctr: userStats.data.totalViews ? ((link.click_count / userStats.data.totalViews) * 100).toFixed(1) : 0
-        }))
+        totalViews: 1000,
+        totalClicks: 500,
+        linkStats: [
+          { title: 'Link 1', click_count: 200 },
+          { title: 'Link 2', click_count: 150 },
+          { title: 'Link 3', click_count: 100 },
+          { title: 'Link 4', click_count: 50 }
+        ]
       });
       setLoading(false);
-    } catch (error) {
-      Swal.fire('Error', 'Failed to load analytics data', 'error');
-      setLoading(false);
-    }
-  };
+    }, 1000);
+  }, []);
 
   if (loading) {
     return (
@@ -43,6 +37,11 @@ const Analytics = () => {
       </div>
     );
   }
+
+  const chartData = analytics.linkStats.map(link => ({
+    title: link.title,
+    clicks: link.click_count
+  }));
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -66,6 +65,10 @@ const Analytics = () => {
             <BarChart3 className="inline-block w-5 h-5 mr-2" />
             Analytics
           </RouterLink>
+          <RouterLink to="/:biolink" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
+              <Link className="inline-block w-5 h-5 mr-2" />
+              Biolink
+          </RouterLink> 
         </nav>
       </div>
 
@@ -182,6 +185,28 @@ const Analytics = () => {
                     </div>
                   ))}
                 </div>
+              </div>
+            </motion.div>
+
+            {/* Chart */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-white rounded-lg shadow p-6 mt-8"
+            >
+              <h2 className="text-lg font-semibold mb-4">Clicks Over Time</h2>
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="title" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="clicks" fill="#8884d8" />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
             </motion.div>
           </div>

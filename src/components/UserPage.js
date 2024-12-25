@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProfile, getUserLinks } from '../services/api';
 import Swal from 'sweetalert2';
+import { motion } from 'framer-motion';
 
 const UserPage = () => {
+  
   const { biolink } = useParams();
   const [profile, setProfile] = useState(null);
   const [links, setLinks] = useState([]);
