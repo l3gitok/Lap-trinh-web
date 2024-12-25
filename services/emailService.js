@@ -21,20 +21,6 @@ const sendResetPasswordEmail = async (to, token) => {
   await transporter.sendMail(mailOptions);
 };
 
-
-const sendOtpEmail = async (to, otp) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to,
-    subject: 'Your OTP Code',
-    text: `Your OTP code is ${otp}. It will expire in 10 minutes.`,
-    html: `<p>Your OTP code is <strong>${otp}</strong>. It will expire in 10 minutes.</p>`
-  };
-
-  await transporter.sendMail(mailOptions);
-};
-
 module.exports = {
-  sendResetPasswordEmail,
-  sendOtpEmail
+  sendResetPasswordEmail
 };

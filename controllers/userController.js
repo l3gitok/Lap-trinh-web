@@ -6,9 +6,6 @@ const jwt = require('jsonwebtoken');
 const sessionModel = require('../models/sessionModel');
 const { sendResetPasswordEmail } = require('../services/emailService');
 
-const generateOtp = () => {
-  return crypto.randomBytes(3).toString('hex'); // Generates a 6-character OTP
-};
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
   try {
@@ -20,25 +17,10 @@ const registerUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const userId = await userModel.createUser(username, email, hashedPassword);
     await profileModel.createProfile(userId);
+    const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '24h' });
+    await sessionModel.createSession(userId, token, new Date(Date.now() + 24*60*60*1000));
 
-    const otp = generateOtp();
-    await userModel.storeOtp(userId, otp); // Store OTP in the database with an expiration time
-    await sendOtpEmail(email, otp);
-
-    res.status(201).json({ message: 'User created successfully. Please check your email for the OTP.' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
-const verifyOtp = async (req, res) => {
-  const { userId, otp } = req.body;
-  try {
-    const isValid = await userModel.verifyOtp(userId, otp);
-    if (!isValid) {
-      return res.status(400).json({ error: 'Invalid or expired OTP' });
-    }
-
-    res.json({ message: 'OTP verified successfully' });
+    res.status(201).json({ message: 'User created successfully', token });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -214,6 +196,5 @@ module.exports = {
   getUserByUsername,
   updatePassword,
   getUserById,
-  verifyOtp,
   verifyEmail
 };

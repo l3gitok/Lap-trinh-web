@@ -9,19 +9,22 @@ const createUser = async (username, email, password, biolink = '', googleId = nu
   return result.insertId;
 };
 
-const storeOtp = async (userId, otp) => {
-  const query = `
-    UPDATE users SET otp = ? WHERE id = ?
-  `;
-  await db.query(query, [otp, userId]);
+const getUserByEmail = async (email) => {
+  const query = `SELECT * FROM users WHERE email = ?`;
+  const [rows] = await db.query(query, [email]);
+  return rows[0];
 };
 
-const verifyOtp = async (userId, otp) => {
-  const query = `
-    SELECT * FROM users WHERE id = ? AND otp = ?
-  `;
-  const [rows] = await db.query(query, [userId, otp]);
-  return rows.length > 0;
+const getUserById = async (id) => {
+  const query = `SELECT * FROM users WHERE id = ?`;
+  const [rows] = await db.query(query, [id]);
+  return rows[0];
+};
+
+const getUserByUsername = async (username) => {
+  const query = `SELECT * FROM users WHERE username = ?`;
+  const [rows] = await db.query(query, [username]);
+  return rows[0];
 };
 
 const updateUser = async (id, data) => {
@@ -57,7 +60,5 @@ module.exports = {
   updateUser,
   getUserByEmailOrUsername,
   updateUserPassword,
-  verifyEmail,
-  storeOtp,
-  verifyOtp
+  verifyEmail
 };
