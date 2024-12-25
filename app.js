@@ -13,10 +13,11 @@ const socialmediaRoutes = require('./routes/socialmediaRoutes');
 
 const app = express();
 
-app.use(cors(
-  {
-    origin: 'https://linktreefake-8ryl.onrender.com/', // Thay thế bằng URL của frontend đã deploy
-    credentials: true
+app.use(cors({
+  origin: 'https://linktreefake-8ryl.onrender.com',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.get("/api", (req, res) => {
