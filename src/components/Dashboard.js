@@ -118,9 +118,11 @@ const Dashboard = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-4">
-          <h2 className="text-2xl font-bold">Dashboard</h2>
+      <div className="w-64 bg-white/90 backdrop-blur-sm shadow-xl">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-accent1 to-accent4 bg-clip-text text-transparent">
+            Dashboard
+          </h2>
         </div>
         <nav className="mt-4">
           <RouterLink to="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
@@ -169,7 +171,8 @@ const Dashboard = () => {
                   key={link.id} // Ensure unique key prop
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                  className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  whileHover={{ y: -5 }}
                 >
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">{link.title}</h3>
@@ -184,10 +187,11 @@ const Dashboard = () => {
                   </div>
                   <div className="flex justify-end mt-4 space-x-2">
                     <motion.button
+                      className="p-3 rounded-full bg-accent1/10 hover:bg-accent1/20 text-accent1"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
                       onClick={() => handleEditLink(link)}
-                      className="p-2 bg-gray-100 hover:bg-gray-200 rounded text-blue-500"
+                     
                     >
                       <PencilIcon className="w-5 h-5" />
                     </motion.button>

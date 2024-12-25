@@ -40,9 +40,11 @@ const Profile = () => {
   return (
     <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-4">
-          <h2 className="text-2xl font-bold">Dashboard</h2>
+      <div className="w-64 bg-white/90 backdrop-blur-sm shadow-xl">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-accent1 to-accent4 bg-clip-text text-transparent">
+            Dashboard
+          </h2>
         </div>
         <nav className="mt-4">
           <RouterLink to="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">

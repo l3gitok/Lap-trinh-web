@@ -34,12 +34,12 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <motion.div
-        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
+    <div className="min-h-screen bg-gradient-to-br from-accent1 via-accent2 to-accent4 flex items-center justify-center p-4">
+      <motion.div 
+        className="bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl w-full max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
       >
         <motion.h1
           className="text-2xl font-bold mb-6 text-center"
@@ -85,9 +85,9 @@ const Login = () => {
           </div>
             <motion.button
               type="submit"
-              className={`w-full ${loading ? 'bg-blue-400' : 'bg-blue-600'} text-white font-semibold py-2 rounded-lg hover:bg-blue-700`}
-              whileHover={{ scale: loading ? 1 : 1.05 }}
-              whileTap={{ scale: loading ? 1 : 0.95 }}
+              className="w-full py-4 bg-accent4 text-white rounded-full font-medium text-lg hover:bg-accent3 transition-all duration-300"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               disabled={loading}
             >
               {loading ? 'Đang đăng nhập...' : 'Đăng Nhập'}

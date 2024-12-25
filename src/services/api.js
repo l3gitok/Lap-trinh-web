@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'https://backendlinktree.onrender.com/api';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: 'https://backendlinktree.onrender.com/api',
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
   }

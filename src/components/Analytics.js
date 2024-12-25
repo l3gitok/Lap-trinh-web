@@ -47,9 +47,11 @@ const Analytics = () => {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-md">
-        <div className="p-4">
-          <h2 className="text-2xl font-bold">Dashboard</h2>
+      <div className="w-64 bg-white/90 backdrop-blur-sm shadow-xl">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold bg-gradient-to-r from-accent1 to-accent4 bg-clip-text text-transparent">
+            Dashboard
+          </h2>
         </div>
         <nav className="mt-4">
           <RouterLink to="/dashboard" className="block px-4 py-2 text-gray-700 hover:bg-gray-200">
@@ -109,12 +111,14 @@ const Analytics = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white rounded-lg shadow p-6"
+                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600">Total Clicks</p>
-                    <h3 className="text-2xl font-bold mt-1">{analytics.totalClicks}</h3>
+                  <p className="text-sm font-medium text-gray-600">Total Views</p>
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-accent1 to-accent4 bg-clip-text text-transparent">
+                    {analytics.totalViews}
+                  </h3>
                   </div>
                   <div className="p-3 bg-accent2/10 rounded-full">
                     <LinkIcon className="w-6 h-6 text-accent2" />
