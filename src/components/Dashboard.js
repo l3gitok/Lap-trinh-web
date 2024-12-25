@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { getUserLinks, createLink, updateLink, deleteLink } from '../services/api';
 import Swal from 'sweetalert2';
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { LayoutDashboard, User2, BarChart3, Settings } from 'lucide-react';
+import { LayoutDashboard, User2, BarChart3 } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
