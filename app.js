@@ -13,7 +13,12 @@ const socialmediaRoutes = require('./routes/socialmediaRoutes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://linktreefake-8ryl.onrender.com', // Update this to your frontend domain
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true
+}));
+
 app.use(express.json());
 app.get("/api", (req, res) => {
   res.json({ message: "API is working!" });
