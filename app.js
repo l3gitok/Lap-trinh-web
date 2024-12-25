@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
+
 dotenv.config();
 
 const authRoutes = require('./routes/authRoutes');
@@ -33,5 +34,9 @@ app.use('/api/social-media', socialmediaRoutes);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500).json({ error: err.message });
+});
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
 });
 module.exports = app;
